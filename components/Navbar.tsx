@@ -32,7 +32,7 @@ export default function Navbar() {
                 alt="Noble Homeware"
                 width={180}
                 height={50}
-                className="h-10 w-auto sm:h-12"
+                className="h-12 w-auto sm:h-14"
                 priority
               />
             </Link>
@@ -45,7 +45,7 @@ export default function Navbar() {
                 <Link 
                   key={link.name}
                   href={link.href}
-                  className={`whitespace-nowrap px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${pathname === link.href ? 'text-red-600' : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'}`}
+                  className={`whitespace-nowrap px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 ${pathname === link.href ? 'text-red-600' : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'}`}
                 >
                   {link.name}
                 </Link>
@@ -55,7 +55,7 @@ export default function Navbar() {
 
           {/* Right side - Request Quote Button */}
           <div className="hidden md:flex items-center justify-end flex-1">
-            <Link href="/request-quote" className="px-4 py-2 bg-gray-800 text-white rounded-md text-sm font-medium hover:bg-gray-700 transition-colors duration-200">
+            <Link href="/request-quote" className="px-4 py-2 bg-gray-800 text-white rounded-md text-base font-medium hover:bg-gray-700 transition-colors duration-200">
               Request Quote
             </Link>
           </div>
@@ -89,13 +89,13 @@ export default function Navbar() {
             <Link 
               key={link.name}
               href={link.href}
-              className={`block px-4 py-2 rounded-md text-base font-medium transition-colors duration-200 ${pathname === link.href ? 'text-red-600' : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'}`}
+              className={`block px-4 py-2 rounded-md text-lg font-medium transition-colors duration-200 ${pathname === link.href ? 'text-red-600' : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'}`}
               onClick={() => setIsOpen(false)}
             >
               {link.name}
             </Link>
           ))}
-          <Link href="/request-quote" className="w-full text-left px-4 py-2 bg-gray-800 text-white rounded-md text-base font-medium hover:bg-gray-700 transition-colors duration-200" onClick={() => setIsOpen(false)}>
+          <Link href="/request-quote" className="w-full text-left px-4 py-2 bg-gray-800 text-white rounded-md text-lg font-medium hover:bg-gray-700 transition-colors duration-200" onClick={() => setIsOpen(false)}>
             Request Quote
           </Link>
         </div>

@@ -1,0 +1,23 @@
+{
+  "name": "Noble Homeware - Premium Plastic Manufacturing & White Label Solutions",
+  "short_name": "Noble Homeware",
+  "description": "Leading manufacturer of high-quality plastic homeware products. Specializing in white-label manufacturing, custom solutions, and B2B sourcing.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1e40af",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["business", "manufacturing", "shopping"],
+  "lang": "en-US",
+  "dir": "ltr",
+  "scope": "/",
+  "id": "noble-homeware"
+}
