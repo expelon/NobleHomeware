@@ -9,43 +9,43 @@ const categories = [
     name: 'Furniture',
     count: '115+ Products',
     description: 'Create comfortable and stylish living spaces with our extensive range of plastic furniture.',
-    image: '/furniture-category.jpg'
+    image: '/furniture.webp'
   },
   {
     name: 'Households',
     count: '25+ Products',
     description: 'Smart solutions to declutter your home and office, making organization simple and efficient.',
-    image: '/households-category.jpg'
+    image: '/households.webp'
   },
   {
     name: 'Kitchen & Dining',
     count: '45+ Products',
     description: 'Functional, food-safe, and modern essentials for your kitchen and dining experience.',
-    image: '/kitchen-category.jpg'
+    image: '/kitchen.webp'
   },
   {
     name: 'Bathroom & Cleaning',
     count: '35+ Products',
     description: 'Durable, hygienic, and easy-to-clean products designed for bathrooms and cleaning tasks.',
-    image: '/bathroom-category.jpg'
+    image: '/bathroom.webp'
   },
   {
     name: 'Kids World',
     count: '21+ Products',
     description: 'Safe, colorful, and fun plastic products that spark joy and creativity for children.',
-    image: '/kids-category.jpg'
+    image: '/kids.webp'
   },
   {
     name: 'Garden & Outdoors',
     count: '5+ Products',
     description: 'Weather-resistant and sturdy items to enhance and maintain your outdoor spaces.',
-    image: '/garden-category.jpg'
+    image: '/garden.webp'
   },
   {
     name: 'Industrial & Commercial Storage',
     count: '6+ Products',
     description: 'Heavy-duty storage solutions built to withstand demands of industrial and commercial use.',
-    image: '/industrial-category.jpg'
+    image: '/industrial.webp'
   }
 ];
 
@@ -93,50 +93,91 @@ export default function Home() {
       <Hero />
       
       {/* Products Overview Section */}
-      <section className="py-20 bg-gradient-to-br from-gray-50 to-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
-              Welcome to Explore Our Comprehensive Range of Plastic Products
+      <section className="py-24 bg-gradient-to-br from-slate-50 via-white to-slate-50 relative overflow-hidden">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+          }}></div>
+        </div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+          <div className="text-center mb-20">
+                        <h2 className="text-5xl md:text-6xl font-bold text-gray-900 mb-8 leading-tight">
+              <span className="bg-gradient-to-r from-gray-900 via-blue-800 to-indigo-900 bg-clip-text text-transparent">
+                Premium Plastic Solutions
+              </span>
             </h2>
-            <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed font-medium">
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed font-medium">
               Find the perfect solution for your industry. Browse and download our specialized catalogs to discover quality, durability, and innovation.
             </p>
           </div>
           
           {/* Product Categories Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {categories.map((category, index) => (
-              <div key={index} className="group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 overflow-hidden">
-                {/* Gradient overlay on hover */}
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-blue-800/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                
-                <div className="relative p-8">
-                  {/* Image */}
-                  <div className="w-full h-48 mb-6 rounded-xl overflow-hidden group-hover:scale-105 transition-transform duration-300">
+              <div key={index} className="group relative">
+                {/* Card */}
+                <div className="relative bg-white rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 overflow-hidden border border-gray-100">
+                  {/* Image Container - Full Width */}
+                  <div className="relative w-full h-48 overflow-hidden bg-gray-50">
                     <Image
                       src={category.image}
                       alt={category.name}
                       fill
-                      className="object-cover"
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                   </div>
                   
                   {/* Content */}
-                  <div>
-                    <h3 className="text-2xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors duration-300">
-                      {category.name}
-                    </h3>
-                    <p className="text-blue-600 font-semibold text-sm mb-4 uppercase tracking-wide">
-                      {category.count}
-                    </p>
-                    <p className="text-gray-600 leading-relaxed text-sm">
-                      {category.description}
-                    </p>
+                  <div className="relative p-6">
+                    {/* Category Badge */}
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-700 uppercase tracking-wide">
+                        {category.count}
+                      </span>
+                      <div className="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center group-hover:bg-gray-100 transition-colors duration-300">
+                        <svg className="w-4 h-4 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
+                        </svg>
+                      </div>
+                    </div>
+                    
+                    {/* Text Content */}
+                    <div>
+                      <h3 className="text-xl font-semibold text-gray-900 mb-3 group-hover:text-gray-800 transition-colors duration-300">
+                        {category.name}
+                      </h3>
+                      <p className="text-gray-600 leading-relaxed text-sm line-clamp-3">
+                        {category.description}
+                      </p>
+                    </div>
+                    
+                    {/* Hover Action Button */}
+                    <div className="mt-6 md:opacity-0 md:group-hover:opacity-100 transition-all duration-300 transform md:translate-y-2 md:group-hover:translate-y-0">
+                      <Link href="/products">
+                        <button className="w-full bg-gray-900 text-white px-4 py-2 rounded-lg font-medium hover:bg-gray-800 transition-colors duration-300">
+                          Explore Products
+                        </button>
+                      </Link>
+                    </div>
                   </div>
                 </div>
               </div>
             ))}
+          </div>
+          
+          {/* Bottom CTA */}
+          <div className="text-center mt-16">
+            <Link 
+              href="/products"
+              className="inline-flex items-center group bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 transform hover:scale-105 shadow-xl"
+            >
+              View All Products
+              <svg className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
+              </svg>
+            </Link>
           </div>
         </div>
       </section>
