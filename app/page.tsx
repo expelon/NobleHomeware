@@ -294,25 +294,25 @@ export default function Home() {
       <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <div className="inline-block bg-white p-6 rounded-lg shadow-md">
-              <Image
-                src="/plexconcil.webp"
-                alt="PLEXCONCIL"
-                width={128}
-                height={64}
-                className="h-16 w-auto"
+            <div className="mb-8">
+              <Image 
+                src="/plexconcil.webp" 
+                alt="PLEXCONCIL Logo" 
+                width={150} 
+                height={60}
+                className="mx-auto h-auto"
               />
             </div>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
+              Proud Member of PLEXCONCIL
+            </h2>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              We are honored to be part of PLEXCONCIL, demonstrating our commitment to quality standards and excellence in the plastic industry.
+            </p>
           </div>
-          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
-            Proud Member of PLEXCONCIL
-          </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-12">
-            We are honored to be part of PLEXCONCIL, demonstrating our commitment to quality standards and excellence in the plastic industry.
-          </p>
           
           {/* Experience and Quote Content */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 items-center">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-center">
             {/* Experience */}
             <div className="text-center">
               <p className="text-5xl font-bold text-gray-900">12+</p>
