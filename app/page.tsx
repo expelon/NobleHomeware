@@ -90,7 +90,6 @@ const blogPosts = [
 export default function Home() {
   return (
     <div className="min-h-screen">
-      <Navbar />
       <Hero />
       
       {/* Products Overview Section */}
