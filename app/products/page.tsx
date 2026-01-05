@@ -54,6 +54,9 @@ export default function Products() {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    // Ensure we're on the client side
+    if (typeof window === 'undefined') return;
+    
     const checkScreenSize = () => {
       setIsMobile(window.innerWidth < 768); // md breakpoint
     };
@@ -65,111 +68,120 @@ export default function Products() {
   }, []);
 
   const handleDownload = (categoryName: string) => {
-    if (categoryName === 'Bathroom & Cleaning') {
-      const pdfUrl = '/Bathroomwares-Catalogue.pdf';
-      
-      if (isMobile) {
-        // Direct download on mobile
-        const link = document.createElement('a');
-        link.href = pdfUrl;
-        link.download = 'Bathroomwares-Catalogue.pdf';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-      } else {
-        // Open in new tab on desktop
-        window.open(pdfUrl, '_blank');
+    // Ensure we're on the client side
+    if (typeof window === 'undefined' || typeof document === 'undefined') return;
+    
+    try {
+      if (categoryName === 'Bathroom & Cleaning') {
+        const pdfUrl = '/Bathroomwares-Catalogue.pdf';
+        
+        if (isMobile) {
+          // Direct download on mobile
+          const link = document.createElement('a');
+          link.href = pdfUrl;
+          link.download = 'Bathroomwares-Catalogue.pdf';
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        } else {
+          // Open in new tab on desktop
+          window.open(pdfUrl, '_blank');
+        }
+      } else if (categoryName === 'Furniture') {
+        const pdfUrl = '/Furniture-Catalogue.pdf';
+        
+        if (isMobile) {
+          // Direct download on mobile
+          const link = document.createElement('a');
+          link.href = pdfUrl;
+          link.download = 'Furniture-Catalogue.pdf';
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        } else {
+          // Open in new tab on desktop
+          window.open(pdfUrl, '_blank');
+        }
+      } else if (categoryName === 'Households') {
+        const pdfUrl = '/Household-Storage-Catalogue.pdf';
+        
+        if (isMobile) {
+          // Direct download on mobile
+          const link = document.createElement('a');
+          link.href = pdfUrl;
+          link.download = 'Household-Storage-Catalogue.pdf';
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        } else {
+          // Open in new tab on desktop
+          window.open(pdfUrl, '_blank');
+        }
+      } else if (categoryName === 'Kitchen & Dining') {
+        const pdfUrl = '/Kitchenwares-Catalogue.pdf';
+        
+        if (isMobile) {
+          // Direct download on mobile
+          const link = document.createElement('a');
+          link.href = pdfUrl;
+          link.download = 'Kitchenwares-Catalogue.pdf';
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        } else {
+          // Open in new tab on desktop
+          window.open(pdfUrl, '_blank');
+        }
+      } else if (categoryName === 'Garden & Outdoor') {
+        const pdfUrl = '/Gardening-Catalogue.pdf';
+        
+        if (isMobile) {
+          // Direct download on mobile
+          const link = document.createElement('a');
+          link.href = pdfUrl;
+          link.download = 'Gardening-Catalogue.pdf';
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        } else {
+          // Open in new tab on desktop
+          window.open(pdfUrl, '_blank');
+        }
+      } else if (categoryName === 'Industrial & Commercial') {
+        const pdfUrl = '/Industrial-Storage-Catalogue.pdf';
+        
+        if (isMobile) {
+          // Direct download on mobile
+          const link = document.createElement('a');
+          link.href = pdfUrl;
+          link.download = 'Industrial-Storage-Catalogue.pdf';
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        } else {
+          // Open in new tab on desktop
+          window.open(pdfUrl, '_blank');
+        }
+      } else if (categoryName === 'Kids World') {
+        const pdfUrl = '/Kids-World-Catalogue.pdf';
+        
+        if (isMobile) {
+          // Direct download on mobile
+          const link = document.createElement('a');
+          link.href = pdfUrl;
+          link.download = 'Kids-World-Catalogue.pdf';
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        } else {
+          // Open in new tab on desktop
+          window.open(pdfUrl, '_blank');
+        }
       }
-    } else if (categoryName === 'Furniture') {
-      const pdfUrl = '/Furniture-Catalogue.pdf';
-      
-      if (isMobile) {
-        // Direct download on mobile
-        const link = document.createElement('a');
-        link.href = pdfUrl;
-        link.download = 'Furniture-Catalogue.pdf';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-      } else {
-        // Open in new tab on desktop
-        window.open(pdfUrl, '_blank');
-      }
-    } else if (categoryName === 'Households') {
-      const pdfUrl = '/Household-Storage-Catalogue.pdf';
-      
-      if (isMobile) {
-        // Direct download on mobile
-        const link = document.createElement('a');
-        link.href = pdfUrl;
-        link.download = 'Household-Storage-Catalogue.pdf';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-      } else {
-        // Open in new tab on desktop
-        window.open(pdfUrl, '_blank');
-      }
-    } else if (categoryName === 'Kitchen & Dining') {
-      const pdfUrl = '/Kitchenwares-Catalogue.pdf';
-      
-      if (isMobile) {
-        // Direct download on mobile
-        const link = document.createElement('a');
-        link.href = pdfUrl;
-        link.download = 'Kitchenwares-Catalogue.pdf';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-      } else {
-        // Open in new tab on desktop
-        window.open(pdfUrl, '_blank');
-      }
-    } else if (categoryName === 'Garden & Outdoor') {
-      const pdfUrl = '/Gardening-Catalogue.pdf';
-      
-      if (isMobile) {
-        // Direct download on mobile
-        const link = document.createElement('a');
-        link.href = pdfUrl;
-        link.download = 'Gardening-Catalogue.pdf';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-      } else {
-        // Open in new tab on desktop
-        window.open(pdfUrl, '_blank');
-      }
-    } else if (categoryName === 'Industrial & Commercial') {
-      const pdfUrl = '/Industrial-Storage-Catalogue.pdf';
-      
-      if (isMobile) {
-        // Direct download on mobile
-        const link = document.createElement('a');
-        link.href = pdfUrl;
-        link.download = 'Industrial-Storage-Catalogue.pdf';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-      } else {
-        // Open in new tab on desktop
-        window.open(pdfUrl, '_blank');
-      }
-    } else if (categoryName === 'Kids World') {
-      const pdfUrl = '/Kids-World-Catalogue.pdf';
-      
-      if (isMobile) {
-        // Direct download on mobile
-        const link = document.createElement('a');
-        link.href = pdfUrl;
-        link.download = 'Kids-World-Catalogue.pdf';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-      } else {
-        // Open in new tab on desktop
-        window.open(pdfUrl, '_blank');
-      }
+    } catch (error) {
+      console.error('Download failed:', error);
+      // Fallback: open in new tab
+      window.open('/master-catalog.pdf', '_blank');
     }
   };
 
@@ -224,6 +236,12 @@ export default function Products() {
                         alt={category.name}
                         fill
                         className="object-cover"
+                        onError={(e) => {
+                          // Fallback to a placeholder image if the main image fails
+                          const target = e.target as HTMLImageElement;
+                          target.src = '/placeholder.webp';
+                        }}
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       />
                     </div>
                   </div>
@@ -270,7 +288,7 @@ export default function Products() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="text-center">
             <div className="mb-8">
-              <span className="inline-flex items-center px-4 py-2 bg-white/20 text-white rounded-full text-sm font-semibold uppercase tracking-full">
+              <span className="inline-flex items-center px-4 py-2 bg-white/20 text-white rounded-full text-sm font-semibold uppercase tracking-widest">
                 Complete Collection
               </span>
             </div>
@@ -284,19 +302,28 @@ export default function Products() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <button 
                 onClick={() => {
-                  const pdfUrl = '/master-catalog.pdf';
+                  // Ensure we're on client side
+                  if (typeof window === 'undefined' || typeof document === 'undefined') return;
                   
-                  if (isMobile) {
-                    // Direct download on mobile
-                    const link = document.createElement('a');
-                    link.href = pdfUrl;
-                    link.download = 'master-catalog.pdf';
-                    document.body.appendChild(link);
-                    link.click();
-                    document.body.removeChild(link);
-                  } else {
-                    // Open in new tab on desktop
-                    window.open(pdfUrl, '_blank');
+                  try {
+                    const pdfUrl = '/master-catalog.pdf';
+                    
+                    if (isMobile) {
+                      // Direct download on mobile
+                      const link = document.createElement('a');
+                      link.href = pdfUrl;
+                      link.download = 'master-catalog.pdf';
+                      document.body.appendChild(link);
+                      link.click();
+                      document.body.removeChild(link);
+                    } else {
+                      // Open in new tab on desktop
+                      window.open(pdfUrl, '_blank');
+                    }
+                  } catch (error) {
+                    console.error('Master catalog download failed:', error);
+                    // Fallback: open in new tab
+                    window.open('/master-catalog.pdf', '_blank');
                   }
                 }}
                 className="bg-white text-blue-600 px-8 py-4 rounded-lg font-bold hover:bg-gray-100 transition-colors duration-300 flex items-center text-lg shadow-lg"
