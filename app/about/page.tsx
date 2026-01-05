@@ -5,52 +5,74 @@ import Image from 'next/image';
 export default function About() {
   return (
     <div className="min-h-screen bg-gray-50">
-      <Navbar />
-      
-      {/* Hero Section */}
-      <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">About Noble Homeware</h1>
-          <p className="text-xl">Woven from Legacy, Built for the Future</p>
+      <div className="relative h-screen w-full overflow-hidden">
+        <Navbar isSticky={false} isTransparent={true} />
+        
+        {/* Hero Section */}
+        <div className="absolute inset-0 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: 'url("/about-hero.webp")' }}>
+          <div className="absolute inset-0 bg-black bg-opacity-40"></div>
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-center">
+            <div className="text-white text-center">
+              <h1 className="text-4xl md:text-5xl font-bold mb-4 leading-tight md:leading-normal">Woven from Legacy, Built for the Future.<br />A Foundation Forged in 1990</h1>
+              <p className="text-xl max-w-3xl mx-auto">Discover three decades of excellence in India's plastic products industry</p>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* About Content */}
+      {/* About Noble Homeware Section */}
+      <div className="bg-white py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900">About Us</h2>
+              <p className="text-lg text-blue-600 font-semibold mb-4">
+                We are the experts behind the Industry experts.
+              </p>
+              <p className="text-lg text-gray-600 leading-relaxed mb-6">
+                Noble Homeware delivers premium homeware with 30+ years of polymer excellence. Our plastic science expertise sets industry standards.
+              </p>
+              <p className="text-lg text-gray-600 leading-relaxed mb-6">
+                Based in Coimbatore, we provide B2B partners with durable, safe, valuable products. Sustainability drives our operations.
+              </p>
+              <p className="text-lg text-gray-600 leading-relaxed">
+                For the last three decades, our family has been at the heart of India's plastic products industry. From humble beginnings in 1990, we grew to become one of India's most trusted suppliers of high-grade virgin and recycled polymers. We've dedicated our lives to the cycle of renewal, transforming discarded materials into valuable resources for manufacturers across the nation. This isn't just our business; it's our heritage.
+              </p>
+            </div>
+            
+            <div className="relative h-96 rounded-lg overflow-hidden">
+              <Image
+                src="/home3.webp"
+                alt="About Noble Homeware"
+                fill
+                className="object-cover"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* CTA Section */}
+      <section className="w-full bg-gradient-to-r from-blue-600 to-blue-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
+          <div className="text-center max-w-4xl mx-auto">
+            <p className="text-base md:text-2xl text-white/95 leading-relaxed mb-8">
+              We saw this deep, hands-on knowledge of material science as our greatest strength. We asked a simple question: If we create the very building blocks of quality plasticware, why not craft the finished products ourselves? This vision gave birth to Noble Homeware. We are the next level of our family's legacy, created to take our deep industry expertise directly to the global market.
+            </p>
+            <p className="text-base md:text-lg text-white/90 font-semibold mb-10">
+              – Team Noble Homeware
+            </p>
+            <a
+              href="/products"
+              className="inline-block bg-white text-blue-600 font-semibold px-8 py-4 rounded-lg hover:bg-gray-100 transition-colors duration-200 text-lg"
+            >
+              View Products
+            </a>
+          </div>
+        </div>
+      </section>
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">A Foundation Forged in 1990</h2>
-          <p className="text-lg text-gray-600 max-w-4xl mx-auto leading-relaxed">
-            For the last three decades, our family has been at the heart of India's plastic products industry. From humble beginnings in 1990, we grew to become one of India's most trusted suppliers of high-grade virgin and recycled polymers. We've dedicated our lives to the cycle of renewal, transforming discarded materials into valuable resources for manufacturers across the nation. This isn't just our business; it's our heritage.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
-          <div>
-            <h2 className="text-3xl font-bold mb-6">About Noble Homeware</h2>
-            <p className="text-xl text-blue-600 font-semibold mb-4">
-              We are the experts behind the Industry experts.
-            </p>
-            <p className="text-gray-600 mb-4 leading-relaxed">
-              Building on our 30-year family legacy in polymer manufacturing, Noble Homeware represents the culmination of decades of expertise in plastic science and quality assurance. Our deep understanding of materials—from molecular structure to real-world performance—sets us apart in the homeware industry.
-            </p>
-            <p className="text-gray-600 mb-4 leading-relaxed">
-              Located in Coimbatore, Tamil Nadu, we leverage our manufacturing DNA to provide B2B partners with manufacturer-grade quality products that combine durability, safety, and exceptional value. We don't just sell homeware; we deliver on our family's promise of excellence.
-            </p>
-            <p className="text-gray-600 mb-6 leading-relaxed">
-              Our commitment to sustainability and innovation drives everything we do, from sourcing premium recycled polymers to implementing rigorous quality control processes that ensure every product meets the highest standards.
-            </p>
-          </div>
-          
-          <div className="relative h-96 rounded-lg overflow-hidden">
-            <Image
-              src="/home.jpg"
-              alt="About Noble Homeware"
-              fill
-              className="object-cover"
-            />
-          </div>
-        </div>
-
         {/* Heritage Timeline */}
         <div className="bg-white rounded-lg shadow-lg p-8 mb-16">
           <h3 className="text-2xl font-bold text-center mb-8">Our Journey of Excellence</h3>
@@ -78,38 +100,39 @@ export default function About() {
             </div>
           </div>
         </div>
+      </div>
 
-        {/* Director's Message Section */}
-        <div className="bg-gradient-to-r from-blue-50 to-gray-50 rounded-lg p-8 md:p-12">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-            <div>
-              <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">
+      {/* Director's Message Section - Full width below heritage timeline */}
+      <section className="w-full bg-[#7f8095]">
+        <div className="pl-6 sm:pl-8 lg:pl-16 pr-4 sm:pr-6 lg:pr-0 pt-4 md:pt-6 pb-0">
+          <div className="grid grid-cols-1 lg:grid-cols-[1.25fr_0.75fr] gap-10 items-center">
+            <div className="text-center space-y-6 max-w-4xl mx-auto">
+              <h3 className="text-2xl md:text-3xl font-semibold text-[#1f1b2d] leading-tight mt-4 md:mt-0">
                 Welcome to the Noble Homeware family. Let's build a more sustainable home together.
               </h3>
-              <p className="text-lg text-gray-700 mb-4 leading-relaxed">
-                When you partner with Noble Homeware, you're not just buying a product. You are gaining a direct link to the source. You are partnering with a family of specialists who understand quality from the molecule up.
-              </p>
-              <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-                We are here to build a long-term, trusted relationship. We are here to deliver our legacy of excellence, one container at a time.
-              </p>
-              <p className="text-lg font-semibold text-blue-600">
-                – Dr. Mohammed Tahir, Director of Operations
-              </p>
-            </div>
-            
-            <div className="flex justify-center lg:justify-end">
-              <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden shadow-lg">
-                <Image
-                  src="/tahir.webp"
-                  alt="Dr. Mohammed Tahir"
-                  fill
-                  className="object-cover"
-                />
+              <div className="space-y-4 text-white/90 text-sm md:text-base leading-relaxed max-w-4xl mx-auto">
+                <p>
+                  When you partner with Noble Homeware, you're not just buying a product. You are gaining a direct link to the source. You are partnering with a family of specialists who understand quality from the molecule up.
+                </p>
+                <p>
+                  We are here to build a long-term, trusted relationship. We are here to deliver our legacy of excellence, one container at a time.
+                </p>
               </div>
+              <p className="text-white text-sm md:text-base italic">– Dr. Mohammed Tahir, Director of Operations</p>
+            </div>
+
+            <div className="relative w-full h-[380px] md:h-[450px] lg:h-[520px] flex justify-center lg:justify-end pr-0 lg:-mr-6">
+              <Image
+                src="/tahir.webp"
+                alt="Dr. Mohammed Tahir"
+                fill
+                className="object-contain object-bottom"
+                priority
+              />
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
       <Footer />
     </div>
