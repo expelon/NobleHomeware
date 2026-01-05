@@ -1,53 +1,178 @@
+'use client';
+
+import { useState, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import Image from 'next/image';
 
-const products = [
+const categories = [
   {
-    id: 1,
-    name: 'Noble Ease Chair',
-    image: '/Noble_ease_NH_CHR_LNG003.png',
-    description: 'Premium comfort chair with modern design',
-    price: '₹4,999'
+    name: 'Furniture',
+    count: '115+ Products',
+    description: 'Create comfortable and stylish living spaces with our extensive range of plastic furniture.',
+    image: '/furniture.webp'
   },
   {
-    id: 2,
-    name: 'Noble Orbital Bowl',
-    image: '/NHL_BWL_002_Noble_orbital_bowl.png',
-    description: 'Elegant serving bowl for your dining needs',
-    price: '₹899'
+    name: 'Households',
+    count: '25+ Products',
+    description: 'Smart solutions to declutter your home and office, making organization simple and efficient.',
+    image: '/households.webp'
   },
   {
-    id: 3,
-    name: 'Noble Crest Bowl',
-    image: '/NHL_BWL_003_Noble_crest_bowl.png',
-    description: 'Stylish bowl with unique crest design',
-    price: '₹1,299'
+    name: 'Kitchen & Dining',
+    count: '45+ Products',
+    description: 'Functional, food-safe, and modern essentials for your kitchen and dining experience.',
+    image: '/kitchen.webp'
   },
   {
-    id: 4,
-    name: 'Noble Riza Chair',
-    image: '/NH_CHR_PRM001_Noble_riza.png',
-    description: 'Comfortable and durable dining chair',
-    price: '₹3,499'
+    name: 'Bathroom & Cleaning',
+    count: '35+ Products',
+    description: 'Durable, hygienic, and easy-to-clean products designed for bathrooms and cleaning tasks.',
+    image: '/bathroom.webp'
   },
   {
-    id: 5,
-    name: 'Noble Ascend Chair',
-    image: '/NH_CHR_PRM027_Noble_ascend.png',
-    description: 'Modern chair with ergonomic design',
-    price: '₹2,999'
+    name: 'Kids World',
+    count: '21+ Products',
+    description: 'Safe, colorful, and fun plastic products that spark joy and creativity for children.',
+    image: '/kids.webp'
   },
   {
-    id: 6,
-    name: 'Noble Airtight Containers',
-    image: '/NH_CTN_001_Noble_airtight_print_containers.png',
-    description: 'Set of airtight storage containers',
-    price: '₹1,599'
+    name: 'Garden & Outdoor',
+    count: '5+ Products',
+    description: 'Weather-resistant and sturdy items to enhance and maintain your outdoor spaces.',
+    image: '/garden.webp'
+  },
+  {
+    name: 'Industrial & Commercial',
+    count: '6+ Products',
+    description: 'Heavy-duty storage solutions built to withstand demands of industrial and commercial use.',
+    image: '/industrial.webp'
   }
 ];
 
 export default function Products() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsMobile(window.innerWidth < 768); // md breakpoint
+    };
+    
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+    
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
+
+  const handleDownload = (categoryName: string) => {
+    if (categoryName === 'Bathroom & Cleaning') {
+      const pdfUrl = '/Bathroomwares-Catalogue.pdf';
+      
+      if (isMobile) {
+        // Direct download on mobile
+        const link = document.createElement('a');
+        link.href = pdfUrl;
+        link.download = 'Bathroomwares-Catalogue.pdf';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      } else {
+        // Open in new tab on desktop
+        window.open(pdfUrl, '_blank');
+      }
+    } else if (categoryName === 'Furniture') {
+      const pdfUrl = '/Furniture-Catalogue.pdf';
+      
+      if (isMobile) {
+        // Direct download on mobile
+        const link = document.createElement('a');
+        link.href = pdfUrl;
+        link.download = 'Furniture-Catalogue.pdf';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      } else {
+        // Open in new tab on desktop
+        window.open(pdfUrl, '_blank');
+      }
+    } else if (categoryName === 'Households') {
+      const pdfUrl = '/Household-Storage-Catalogue.pdf';
+      
+      if (isMobile) {
+        // Direct download on mobile
+        const link = document.createElement('a');
+        link.href = pdfUrl;
+        link.download = 'Household-Storage-Catalogue.pdf';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      } else {
+        // Open in new tab on desktop
+        window.open(pdfUrl, '_blank');
+      }
+    } else if (categoryName === 'Kitchen & Dining') {
+      const pdfUrl = '/Kitchenwares-Catalogue.pdf';
+      
+      if (isMobile) {
+        // Direct download on mobile
+        const link = document.createElement('a');
+        link.href = pdfUrl;
+        link.download = 'Kitchenwares-Catalogue.pdf';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      } else {
+        // Open in new tab on desktop
+        window.open(pdfUrl, '_blank');
+      }
+    } else if (categoryName === 'Garden & Outdoor') {
+      const pdfUrl = '/Gardening-Catalogue.pdf';
+      
+      if (isMobile) {
+        // Direct download on mobile
+        const link = document.createElement('a');
+        link.href = pdfUrl;
+        link.download = 'Gardening-Catalogue.pdf';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      } else {
+        // Open in new tab on desktop
+        window.open(pdfUrl, '_blank');
+      }
+    } else if (categoryName === 'Industrial & Commercial') {
+      const pdfUrl = '/Industrial-Storage-Catalogue.pdf';
+      
+      if (isMobile) {
+        // Direct download on mobile
+        const link = document.createElement('a');
+        link.href = pdfUrl;
+        link.download = 'Industrial-Storage-Catalogue.pdf';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      } else {
+        // Open in new tab on desktop
+        window.open(pdfUrl, '_blank');
+      }
+    } else if (categoryName === 'Kids World') {
+      const pdfUrl = '/Kids-World-Catalogue.pdf';
+      
+      if (isMobile) {
+        // Direct download on mobile
+        const link = document.createElement('a');
+        link.href = pdfUrl;
+        link.download = 'Kids-World-Catalogue.pdf';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      } else {
+        // Open in new tab on desktop
+        window.open(pdfUrl, '_blank');
+      }
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="relative h-screen w-full overflow-hidden">
@@ -65,33 +190,126 @@ export default function Products() {
         </div>
       </div>
 
-      {/* Products Grid */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {products.map((product) => (
-            <div key={product.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-              <div className="h-64 relative">
-                <Image
-                  src={product.image}
-                  alt={product.name}
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-semibold mb-2">{product.name}</h3>
-                <p className="text-gray-600 mb-4">{product.description}</p>
-                <div className="flex justify-between items-center">
-                  <span className="text-2xl font-bold text-blue-600">{product.price}</span>
-                  <button className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors">
-                    View Details
-                  </button>
+      {/* Categories Section */}
+      <section className="py-24 bg-gradient-to-br from-slate-50 via-white to-slate-50 relative overflow-hidden">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+          }}></div>
+        </div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+          <div className="text-center mb-20">
+            <h2 className="text-5xl md:text-6xl font-bold text-gray-900 mb-8 leading-tight">
+              <span className="bg-gradient-to-r from-gray-900 via-blue-800 to-indigo-900 bg-clip-text text-transparent">
+                Product Categories
+              </span>
+            </h2>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed font-medium">
+              Browse our comprehensive product categories and download detailed catalogs for each collection.
+            </p>
+          </div>
+          
+          {/* Categories Sections */}
+          {categories.map((category, index) => (
+            <section key={index} className={`py-20 ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}>
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                  {/* Image - First on mobile, alternating on desktop */}
+                  <div className={`${index % 2 === 0 ? 'lg:order-1' : 'lg:order-2'} order-1`}>
+                    <div className="relative h-64 sm:h-80 lg:h-96 rounded-2xl overflow-hidden shadow-2xl">
+                      <Image
+                        src={category.image}
+                        alt={category.name}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                  </div>
+                  
+                  {/* Content - Second on mobile, alternating on desktop */}
+                  <div className={`${index % 2 === 0 ? 'lg:order-2' : 'lg:order-1'} order-2`}>
+                    <div className="mb-6">
+                      <span className="inline-flex items-center px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-semibold uppercase tracking-wide mb-4">
+                        {category.count}
+                      </span>
+                    </div>
+                    <h3 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+                      {category.name}
+                    </h3>
+                    <p className="text-base sm:text-lg text-gray-600 leading-relaxed mb-8">
+                      {category.description}
+                    </p>
+                    <button 
+                      onClick={() => handleDownload(category.name)}
+                      className="bg-blue-600 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-semibold hover:bg-blue-700 transition-colors duration-300 flex items-center"
+                    >
+                      <svg className="w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clipRule="evenodd" />
+                      </svg>
+                      Download Catalog
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
+            </section>
           ))}
         </div>
-      </div>
+      </section>
+
+      {/* Master Catalog Section */}
+      <section className="py-20 bg-gradient-to-r from-blue-600 to-indigo-700 relative overflow-hidden">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+          }}></div>
+        </div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+          <div className="text-center">
+            <div className="mb-8">
+              <span className="inline-flex items-center px-4 py-2 bg-white/20 text-white rounded-full text-sm font-semibold uppercase tracking-full">
+                Complete Collection
+              </span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-6">
+              Download Master Catalog
+            </h2>
+            <p className="text-lg text-blue-100 max-w-3xl mx-auto mb-10 leading-relaxed">
+              Get access to our complete product collection in one comprehensive catalog. Features all 250+ products across all categories with detailed specifications and pricing.
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <button 
+                onClick={() => {
+                  const pdfUrl = '/master-catalog.pdf';
+                  
+                  if (isMobile) {
+                    // Direct download on mobile
+                    const link = document.createElement('a');
+                    link.href = pdfUrl;
+                    link.download = 'master-catalog.pdf';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                  } else {
+                    // Open in new tab on desktop
+                    window.open(pdfUrl, '_blank');
+                  }
+                }}
+                className="bg-white text-blue-600 px-8 py-4 rounded-lg font-bold hover:bg-gray-100 transition-colors duration-300 flex items-center text-lg shadow-lg"
+              >
+                <svg className="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clipRule="evenodd" />
+                </svg>
+                Download Complete Catalog
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <Footer />
     </div>
