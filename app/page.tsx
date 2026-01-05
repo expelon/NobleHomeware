@@ -4,6 +4,14 @@ import Footer from '@/components/Footer';
 import Image from 'next/image';
 import Link from 'next/link';
 
+function slugify(value: string) {
+  return value
+    .toLowerCase()
+    .replace(/['"]/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '');
+}
+
 const categories = [
   {
     name: 'Furniture',
@@ -233,7 +241,7 @@ export default function Home() {
                     
                     {/* Title */}
                     <h3 className="text-xl font-semibold text-gray-900 mb-4 group-hover:text-gray-800 transition-colors duration-300 leading-tight">
-                      <Link href={`/blog/${post.id}`} className="block">
+                      <Link href={`/blog/${slugify(post.title)}`} className="block">
                         {post.title}
                       </Link>
                     </h3>
@@ -246,7 +254,7 @@ export default function Home() {
                     {/* Read More Link */}
                     <div className="opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-all duration-300 transform translate-y-0 md:translate-y-2 md:group-hover:translate-y-0">
                       <Link 
-                        href={`/blog/${post.id}`}
+                        href={`/blog/${slugify(post.title)}`}
                         className="inline-flex items-center text-gray-900 hover:text-gray-700 font-medium text-sm group"
                       >
                         Read More
@@ -277,9 +285,12 @@ export default function Home() {
             Get a personalized quote for your homeware needs. Our team is here to help you find the perfect solutions.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-white text-blue-600 px-8 py-4 rounded-md hover:bg-gray-100 transition-colors font-semibold text-lg">
+            <Link 
+              href="/request-quote"
+              className="bg-white text-blue-600 px-8 py-4 rounded-md hover:bg-gray-100 transition-colors font-semibold text-lg"
+            >
               Get a Quote
-            </button>
+            </Link>
             <Link 
               href="/contact"
               className="border-2 border-white text-white px-8 py-4 rounded-md hover:bg-white hover:text-blue-600 transition-colors font-semibold text-lg"
