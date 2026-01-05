@@ -4,6 +4,14 @@ import Image from 'next/image';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
+function slugify(value: string) {
+  return value
+    .toLowerCase()
+    .replace(/['"]/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '');
+}
+
 // Mock blog data - in a real app, this would come from a database or CMS
 const blogPosts = [
   {
@@ -513,7 +521,10 @@ const blogPosts = [
 ];
 
 export async function generateMetadata({ params }: { params: { id: string } }) {
-  const post = blogPosts.find(p => p.id === parseInt(params.id));
+  const isNumericId = /^\d+$/.test(params.id);
+  const post = isNumericId
+    ? blogPosts.find((p) => p.id === parseInt(params.id))
+    : blogPosts.find((p) => slugify(p.title) === params.id);
   
   if (!post) {
     return {
@@ -534,7 +545,10 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
 }
 
 export default function BlogPost({ params }: { params: { id: string } }) {
-  const post = blogPosts.find(p => p.id === parseInt(params.id));
+  const isNumericId = /^\d+$/.test(params.id);
+  const post = isNumericId
+    ? blogPosts.find((p) => p.id === parseInt(params.id))
+    : blogPosts.find((p) => slugify(p.title) === params.id);
 
   if (!post) {
     notFound();
@@ -542,7 +556,7 @@ export default function BlogPost({ params }: { params: { id: string } }) {
 
   return (
     <div className="min-h-screen bg-white">
-      <Navbar />
+      <Navbar isSticky={false} />
       
       {/* Hero Section */}
       <div className="relative bg-gradient-to-br from-slate-50 via-white to-slate-50 py-20">
@@ -578,25 +592,16 @@ export default function BlogPost({ params }: { params: { id: string } }) {
 
         {/* Navigation */}
         <div className="mt-16 pt-8 border-t border-gray-200">
-          <div className="flex flex-col sm:flex-row justify-between items-center">
+          <div className="flex justify-center">
             <Link 
               href="/blog"
-              className="inline-flex items-center text-gray-600 hover:text-gray-900 font-medium mb-4 sm:mb-0"
+              className="inline-flex items-center text-gray-600 hover:text-gray-900 font-medium"
             >
               <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd" />
               </svg>
               Back to Blog
             </Link>
-            
-            <div className="flex space-x-4">
-              <button className="inline-flex items-center px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors">
-                <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M15 8a3 3 0 10-2.977-2.63l-4.94 2.47a3 3 0 100 4.319l4.94 2.47a3 3 0 10.895-1.789l-4.94-2.47a3.027 3.027 0 000-.74l4.94-2.47C13.456 7.68 14.19 8 15 8z" />
-                </svg>
-                Share
-              </button>
-            </div>
           </div>
         </div>
       </div>

@@ -1,5 +1,14 @@
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import Link from 'next/link';
+
+function slugify(value: string) {
+  return value
+    .toLowerCase()
+    .replace(/['"]/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '');
+}
 
 const blogPosts = [
   {
@@ -75,20 +84,20 @@ export default function Blog() {
                   <span>{post.date}</span>
                 </div>
                 <h2 className="text-2xl font-bold mb-3 text-gray-900 hover:text-blue-600 transition-colors">
-                  <a href={`/blog/${post.id}`}>{post.title}</a>
+                  <Link href={`/blog/${slugify(post.title)}`}>{post.title}</Link>
                 </h2>
                 <p className="text-gray-600 mb-4 leading-relaxed">{post.excerpt}</p>
                 <div className="flex items-center justify-between">
                   <span className="text-sm text-gray-500">By {post.author}</span>
-                  <a 
-                    href={`/blog/${post.id}`}
+                  <Link
+                    href={`/blog/${slugify(post.title)}`}
                     className="text-blue-600 hover:text-blue-700 font-medium text-sm flex items-center"
                   >
                     Read More
                     <svg className="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
                     </svg>
-                  </a>
+                  </Link>
                 </div>
               </div>
             </article>
