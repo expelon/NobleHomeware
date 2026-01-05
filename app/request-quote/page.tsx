@@ -14,7 +14,7 @@ export default function RequestQuote() {
         <Navbar isSticky={false} isTransparent={true} />
         
         {/* Hero Section */}
-        <div className="absolute inset-0 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: 'url("/about-hero.webp")' }}>
+        <div className="absolute inset-0 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: 'url("/quote.webp")' }}>
           <div className="absolute inset-0 bg-black bg-opacity-40"></div>
           <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-center">
             <div className="text-white text-center">

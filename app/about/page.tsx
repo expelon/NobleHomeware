@@ -42,7 +42,7 @@ export default function About() {
             
             <div className="relative h-96 rounded-lg overflow-hidden">
               <Image
-                src="/home3.webp"
+                src="/about2.webp"
                 alt="About Noble Homeware"
                 fill
                 className="object-cover"
