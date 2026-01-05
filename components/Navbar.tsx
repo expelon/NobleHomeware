@@ -5,7 +5,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-export default function Navbar() {
+interface NavbarProps {
+  isSticky?: boolean;
+  isTransparent?: boolean;
+}
+
+export default function Navbar({ isSticky = true, isTransparent = false }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
 
@@ -22,7 +27,7 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="shadow-lg sticky top-0 z-50">
+    <nav className={`shadow-lg z-50 ${isSticky ? 'sticky top-0' : ''} ${isTransparent ? 'absolute top-0 left-0 right-0 bg-transparent' : ''}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center flex-1">
@@ -45,7 +50,7 @@ export default function Navbar() {
                 <Link 
                   key={link.name}
                   href={link.href}
-                  className={`whitespace-nowrap px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 ${pathname === link.href ? 'text-red-600' : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'}`}
+                  className={`whitespace-nowrap px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 ${pathname === link.href ? (isTransparent ? 'text-white' : 'text-red-600') : (isTransparent ? 'text-white hover:bg-white/20' : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900')}`}
                 >
                   {link.name}
                 </Link>
@@ -64,7 +69,7 @@ export default function Navbar() {
           <div className="md:hidden">
             <button
               onClick={toggleMenu}
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-500 transition-colors duration-200"
+              className={`inline-flex items-center justify-center p-2 rounded-md transition-colors duration-200 ${isTransparent ? 'text-white hover:bg-white/20 focus:ring-white/50' : 'text-gray-700 hover:text-gray-900 hover:bg-gray-100 focus:ring-gray-500'}`}
               aria-expanded="false"
             >
               <span className="sr-only">Open main menu</span>
@@ -89,7 +94,7 @@ export default function Navbar() {
             <Link 
               key={link.name}
               href={link.href}
-              className={`block px-4 py-2 rounded-md text-lg font-medium transition-colors duration-200 ${pathname === link.href ? 'text-red-600' : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'}`}
+              className={`block px-4 py-2 rounded-md text-lg font-medium transition-colors duration-200 ${pathname === link.href ? (isTransparent ? 'text-white' : 'text-red-600') : (isTransparent ? 'text-white hover:bg-white/20' : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900')}`}
               onClick={() => setIsOpen(false)}
             >
               {link.name}

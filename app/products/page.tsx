@@ -50,13 +50,18 @@ const products = [
 export default function Products() {
   return (
     <div className="min-h-screen bg-gray-50">
-      <Navbar />
-      
-      {/* Hero Section */}
-      <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Our Products</h1>
-          <p className="text-xl">Discover our premium range of homeware products</p>
+      <div className="relative h-screen w-full overflow-hidden">
+        <Navbar isSticky={false} isTransparent={true} />
+        
+        {/* Hero Section */}
+        <div className="absolute inset-0 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: 'url("/product-hero.webp")' }}>
+          <div className="absolute inset-0 bg-black bg-opacity-40"></div>
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-center">
+            <div className="text-white text-center">
+              <h1 className="text-4xl md:text-5xl font-bold mb-4">Explore 250+ products in one place</h1>
+              <p className="text-lg max-w-3xl mx-auto">From premium furniture to essential household items, discover our comprehensive collection of quality homeware solutions designed to meet your every need.</p>
+            </div>
+          </div>
         </div>
       </div>
 
