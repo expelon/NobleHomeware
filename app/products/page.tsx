@@ -196,7 +196,37 @@ export default function Products() {
           <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-center">
             <div className="text-white text-center">
               <h1 className="text-4xl md:text-5xl font-bold mb-4">Explore 250+ products in one place</h1>
-              <p className="text-lg max-w-3xl mx-auto">From premium furniture to essential household items, discover our comprehensive collection of quality homeware solutions designed to meet your every need.</p>
+              <p className="text-lg max-w-3xl mx-auto mb-8">From premium furniture to essential household items, discover our comprehensive collection of quality homeware solutions designed to meet your every need.</p>
+              <button 
+                onClick={() => {
+                  // Ensure we're on client side
+                  if (typeof window === 'undefined' || typeof document === 'undefined') return;
+                  
+                  try {
+                    const pdfUrl = '/master-catalog.pdf';
+                    
+                    if (isMobile) {
+                      // Direct download on mobile
+                      const link = document.createElement('a');
+                      link.href = pdfUrl;
+                      link.download = 'master-catalog.pdf';
+                      document.body.appendChild(link);
+                      link.click();
+                      document.body.removeChild(link);
+                    } else {
+                      // Open in new tab on desktop
+                      window.open(pdfUrl, '_blank');
+                    }
+                  } catch (error) {
+                    console.error('Master catalog download failed:', error);
+                    // Fallback: open in new tab
+                    window.open('/master-catalog.pdf', '_blank');
+                  }
+                }}
+                className="bg-red-600 text-white px-8 py-4 rounded-lg font-bold hover:bg-red-700 transition-colors duration-300 text-lg shadow-lg mx-auto"
+              >
+                Download Master Catalog
+              </button>
             </div>
           </div>
         </div>
