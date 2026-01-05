@@ -27,13 +27,6 @@ export default function Footer() {
                   Products
                 </Link>
               </li>
-            </ul>
-          </div>
-
-          {/* Need Help? */}
-          <div>
-            <h3 className="text-xl font-bold mb-4">Need help?</h3>
-            <ul className="space-y-2">
               <li>
                 <Link href="/blog" className="text-gray-300 hover:text-white transition-colors">
                   Blog
@@ -47,6 +40,33 @@ export default function Footer() {
               <li>
                 <Link href="/contact" className="text-gray-300 hover:text-white transition-colors">
                   Contact Us
+                </Link>
+              </li>
+              <li>
+                <Link href="/request-quote" className="text-gray-300 hover:text-white transition-colors">
+                  Request Quote
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Services */}
+          <div>
+            <h3 className="text-xl font-bold mb-4">Services</h3>
+            <ul className="space-y-2">
+              <li>
+                <Link href="/products" className="text-gray-300 hover:text-white transition-colors">
+                  Product Catalogs
+                </Link>
+              </li>
+              <li>
+                <Link href="/request-quote" className="text-gray-300 hover:text-white transition-colors">
+                  Bulk Orders
+                </Link>
+              </li>
+              <li>
+                <Link href="/contact" className="text-gray-300 hover:text-white transition-colors">
+                  Customer Support
                 </Link>
               </li>
             </ul>
