@@ -89,12 +89,14 @@ export default function Navbar({ isSticky = true, isTransparent = false }: Navba
 
       {/* Mobile menu panel */}
       <div className={`md:hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-80 opacity-100' : 'max-h-0 opacity-0 overflow-hidden'}`}>
-        <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t border-gray-200">
+        <div className="px-2 pt-2 pb-3 sm:px-3 bg-white border-t border-gray-200">
           {navLinks.map((link) => (
             <Link 
               key={link.name}
               href={link.href}
-              className={`block px-4 py-2 rounded-md text-lg font-medium transition-colors duration-200 ${pathname === link.href ? (isTransparent ? 'text-white' : 'text-red-600') : (isTransparent ? 'text-white hover:bg-white/20' : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900')}`}
+              className={`block px-4 py-2 rounded-md text-lg font-medium transition-colors duration-200 ${
+                pathname === link.href ? 'text-red-600' : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
+              } ${link.name === 'Contact Us' ? 'mb-4' : 'mb-2'}`}
               onClick={() => setIsOpen(false)}
             >
               {link.name}
