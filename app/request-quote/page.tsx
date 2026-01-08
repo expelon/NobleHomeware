@@ -27,7 +27,7 @@ export default function RequestQuote() {
     setIsSubmitting(true);
 
     try {
-      const res = await fetch('https://formsubmit.co/ajax/sales@noblehomeware.com', {
+      const res = await fetch('https://formsubmit.co/ajax/aneconglobal@gmail.com', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
