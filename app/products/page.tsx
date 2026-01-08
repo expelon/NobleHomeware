@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import Image from 'next/image';
+import { toast } from 'sonner';
 
 const categories = [
   {
@@ -52,6 +53,13 @@ const categories = [
 
 export default function Products() {
   const [isMobile, setIsMobile] = useState(false);
+  const [isLeadModalOpen, setIsLeadModalOpen] = useState(false);
+  const [leadEmail, setLeadEmail] = useState('');
+  const [leadCountryCode, setLeadCountryCode] = useState('+91');
+  const [leadPhone, setLeadPhone] = useState('');
+  const [leadSubmitting, setLeadSubmitting] = useState(false);
+  const [leadError, setLeadError] = useState<string | null>(null);
+  const [pendingDownload, setPendingDownload] = useState<{ pdfUrl: string; filename: string; label: string } | null>(null);
 
   useEffect(() => {
     // Ensure we're on the client side
@@ -67,126 +75,202 @@ export default function Products() {
     return () => window.removeEventListener('resize', checkScreenSize);
   }, []);
 
+  const triggerDownload = (pdfUrl: string, filename: string) => {
+    if (typeof window === 'undefined' || typeof document === 'undefined') return;
+
+    if (isMobile) {
+      const link = document.createElement('a');
+      link.href = pdfUrl;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } else {
+      window.location.href = pdfUrl;
+    }
+  };
+
+  const requestCatalogueDownload = (pdfUrl: string, filename: string, label: string) => {
+    setPendingDownload({ pdfUrl, filename, label });
+    setLeadError(null);
+    setIsLeadModalOpen(true);
+  };
+
+  const submitLeadAndDownload = async () => {
+    if (!pendingDownload) return;
+
+    const email = leadEmail.trim();
+    const countryCode = leadCountryCode.trim();
+    const phone = leadPhone.trim();
+
+    if (!email) {
+      setLeadError('Please enter your email.');
+      return;
+    }
+    if (!countryCode || !countryCode.startsWith('+')) {
+      setLeadError('Please enter a valid country code (example: +91).');
+      return;
+    }
+    if (!phone) {
+      setLeadError('Please enter your phone number.');
+      return;
+    }
+
+    setLeadSubmitting(true);
+    setLeadError(null);
+
+    try {
+      const res = await fetch('https://formsubmit.co/ajax/aneconglobal@gmail.com', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json'
+        },
+        body: JSON.stringify({
+          _subject: `Catalogue download request: ${pendingDownload.label}`,
+          Email: email,
+          Phone: `${countryCode} ${phone}`,
+          Catalogue: pendingDownload.label,
+          Page: 'Products'
+        })
+      });
+
+      if (!res.ok) {
+        throw new Error('Lead submission failed');
+      }
+
+      setIsLeadModalOpen(false);
+      setLeadEmail('');
+      setLeadPhone('');
+      setLeadCountryCode('+91');
+      const toDownload = pendingDownload;
+      setPendingDownload(null);
+
+      toast.success('Thanks! Your download is starting.');
+
+      triggerDownload(toDownload.pdfUrl, toDownload.filename);
+    } catch (e) {
+      setLeadError('Something went wrong. Please try again.');
+      toast.error('Could not submit. Please try again.');
+    } finally {
+      setLeadSubmitting(false);
+    }
+  };
+
   const handleDownload = (categoryName: string) => {
     // Ensure we're on the client side
     if (typeof window === 'undefined' || typeof document === 'undefined') return;
     
     try {
       if (categoryName === 'Bathroom & Cleaning') {
-        const pdfUrl = '/Bathroomwares-Catalogue.pdf';
-        
-        if (isMobile) {
-          // Direct download on mobile
-          const link = document.createElement('a');
-          link.href = pdfUrl;
-          link.download = 'Bathroomwares-Catalogue.pdf';
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
-        } else {
-          // Open in new tab on desktop
-          window.open(pdfUrl, '_blank');
-        }
+        requestCatalogueDownload('/Bathroomwares-Catalogue.pdf', 'Bathroomwares-Catalogue.pdf', 'Bathroom & Cleaning');
       } else if (categoryName === 'Furniture') {
-        const pdfUrl = '/Furniture-Catalogue.pdf';
-        
-        if (isMobile) {
-          // Direct download on mobile
-          const link = document.createElement('a');
-          link.href = pdfUrl;
-          link.download = 'Furniture-Catalogue.pdf';
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
-        } else {
-          // Open in new tab on desktop
-          window.open(pdfUrl, '_blank');
-        }
+        requestCatalogueDownload('/Furniture-Catalogue.pdf', 'Furniture-Catalogue.pdf', 'Furniture');
       } else if (categoryName === 'Households') {
-        const pdfUrl = '/Household-Storage-Catalogue.pdf';
-        
-        if (isMobile) {
-          // Direct download on mobile
-          const link = document.createElement('a');
-          link.href = pdfUrl;
-          link.download = 'Household-Storage-Catalogue.pdf';
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
-        } else {
-          // Open in new tab on desktop
-          window.open(pdfUrl, '_blank');
-        }
+        requestCatalogueDownload('/Household-Storage-Catalogue.pdf', 'Household-Storage-Catalogue.pdf', 'Households');
       } else if (categoryName === 'Kitchen & Dining') {
-        const pdfUrl = '/Kitchenwares-Catalogue.pdf';
-        
-        if (isMobile) {
-          // Direct download on mobile
-          const link = document.createElement('a');
-          link.href = pdfUrl;
-          link.download = 'Kitchenwares-Catalogue.pdf';
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
-        } else {
-          // Open in new tab on desktop
-          window.open(pdfUrl, '_blank');
-        }
+        requestCatalogueDownload('/Kitchenwares-Catalogue.pdf', 'Kitchenwares-Catalogue.pdf', 'Kitchen & Dining');
       } else if (categoryName === 'Garden & Outdoor') {
-        const pdfUrl = '/Gardening-Catalogue.pdf';
-        
-        if (isMobile) {
-          // Direct download on mobile
-          const link = document.createElement('a');
-          link.href = pdfUrl;
-          link.download = 'Gardening-Catalogue.pdf';
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
-        } else {
-          // Open in new tab on desktop
-          window.open(pdfUrl, '_blank');
-        }
+        requestCatalogueDownload('/Gardening-Catalogue.pdf', 'Gardening-Catalogue.pdf', 'Garden & Outdoor');
       } else if (categoryName === 'Industrial & Commercial') {
-        const pdfUrl = '/Industrial-Storage-Catalogue.pdf';
-        
-        if (isMobile) {
-          // Direct download on mobile
-          const link = document.createElement('a');
-          link.href = pdfUrl;
-          link.download = 'Industrial-Storage-Catalogue.pdf';
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
-        } else {
-          // Open in new tab on desktop
-          window.open(pdfUrl, '_blank');
-        }
+        requestCatalogueDownload('/Industrial-Storage-Catalogue.pdf', 'Industrial-Storage-Catalogue.pdf', 'Industrial & Commercial');
       } else if (categoryName === 'Kids World') {
-        const pdfUrl = '/Kids-World-Catalogue.pdf';
-        
-        if (isMobile) {
-          // Direct download on mobile
-          const link = document.createElement('a');
-          link.href = pdfUrl;
-          link.download = 'Kids-World-Catalogue.pdf';
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
-        } else {
-          // Open in new tab on desktop
-          window.open(pdfUrl, '_blank');
-        }
+        requestCatalogueDownload('/Kids-World-Catalogue.pdf', 'Kids-World-Catalogue.pdf', 'Kids World');
       }
     } catch (error) {
       console.error('Download failed:', error);
       // Fallback: open in new tab
-      window.open('/master-catalog.pdf', '_blank');
+      requestCatalogueDownload('/master-catalog.pdf', 'master-catalog.pdf', 'Master Catalog');
     }
   };
 
   return (
     <div className="min-h-screen bg-gray-50">
+      {isLeadModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
+          <div
+            className="absolute inset-0 bg-black/60"
+            onClick={() => {
+              if (leadSubmitting) return;
+              setIsLeadModalOpen(false);
+            }}
+          />
+
+          <div className="relative w-full max-w-lg rounded-2xl bg-white shadow-2xl">
+            <div className="p-6 sm:p-8">
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <h3 className="text-xl font-bold text-gray-900">Get the catalog</h3>
+                  <p className="mt-1 text-sm text-gray-600">
+                    Enter your details to download{pendingDownload?.label ? `: ${pendingDownload.label}` : ''}.
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  className="rounded-lg px-3 py-2 text-sm font-semibold text-gray-600 hover:bg-gray-100"
+                  onClick={() => {
+                    if (leadSubmitting) return;
+                    setIsLeadModalOpen(false);
+                  }}
+                >
+                  Close
+                </button>
+              </div>
+
+              <div className="mt-6 grid grid-cols-1 gap-4">
+                <div>
+                  <label className="block text-sm font-semibold text-gray-800">Email</label>
+                  <input
+                    type="email"
+                    value={leadEmail}
+                    onChange={(e) => setLeadEmail(e.target.value)}
+                    className="mt-2 w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:border-blue-600 focus:outline-none"
+                    placeholder="you@example.com"
+                    autoComplete="email"
+                  />
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-800">Country code</label>
+                    <input
+                      type="tel"
+                      value={leadCountryCode}
+                      onChange={(e) => setLeadCountryCode(e.target.value)}
+                      className="mt-2 w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:border-blue-600 focus:outline-none"
+                      placeholder="+91"
+                      inputMode="tel"
+                    />
+                  </div>
+                  <div className="sm:col-span-2">
+                    <label className="block text-sm font-semibold text-gray-800">Phone number</label>
+                    <input
+                      type="tel"
+                      value={leadPhone}
+                      onChange={(e) => setLeadPhone(e.target.value)}
+                      className="mt-2 w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:border-blue-600 focus:outline-none"
+                      placeholder="9876543210"
+                      autoComplete="tel"
+                      inputMode="tel"
+                    />
+                  </div>
+                </div>
+
+                {leadError && <div className="rounded-lg bg-red-50 px-4 py-3 text-sm font-semibold text-red-700">{leadError}</div>}
+
+                <button
+                  type="button"
+                  disabled={leadSubmitting}
+                  onClick={submitLeadAndDownload}
+                  className="mt-2 inline-flex w-full items-center justify-center rounded-lg bg-blue-600 px-6 py-3 font-bold text-white hover:bg-blue-700 disabled:opacity-60"
+                >
+                  {leadSubmitting ? 'Submitting...' : 'Submit & Download'}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
       <div className="relative h-screen w-full overflow-hidden">
         <Navbar isSticky={false} isTransparent={true} />
         
@@ -203,24 +287,11 @@ export default function Products() {
                   if (typeof window === 'undefined' || typeof document === 'undefined') return;
                   
                   try {
-                    const pdfUrl = '/master-catalog.pdf';
-                    
-                    if (isMobile) {
-                      // Direct download on mobile
-                      const link = document.createElement('a');
-                      link.href = pdfUrl;
-                      link.download = 'master-catalog.pdf';
-                      document.body.appendChild(link);
-                      link.click();
-                      document.body.removeChild(link);
-                    } else {
-                      // Open in new tab on desktop
-                      window.open(pdfUrl, '_blank');
-                    }
+                    requestCatalogueDownload('/master-catalog.pdf', 'master-catalog.pdf', 'Master Catalog');
                   } catch (error) {
                     console.error('Master catalog download failed:', error);
                     // Fallback: open in new tab
-                    window.open('/master-catalog.pdf', '_blank');
+                    requestCatalogueDownload('/master-catalog.pdf', 'master-catalog.pdf', 'Master Catalog');
                   }
                 }}
                 className="bg-red-600 text-white px-8 py-4 rounded-lg font-bold hover:bg-red-700 transition-colors duration-300 text-lg shadow-lg mx-auto"
@@ -336,24 +407,11 @@ export default function Products() {
                   if (typeof window === 'undefined' || typeof document === 'undefined') return;
                   
                   try {
-                    const pdfUrl = '/master-catalog.pdf';
-                    
-                    if (isMobile) {
-                      // Direct download on mobile
-                      const link = document.createElement('a');
-                      link.href = pdfUrl;
-                      link.download = 'master-catalog.pdf';
-                      document.body.appendChild(link);
-                      link.click();
-                      document.body.removeChild(link);
-                    } else {
-                      // Open in new tab on desktop
-                      window.open(pdfUrl, '_blank');
-                    }
+                    requestCatalogueDownload('/master-catalog.pdf', 'master-catalog.pdf', 'Master Catalog');
                   } catch (error) {
                     console.error('Master catalog download failed:', error);
                     // Fallback: open in new tab
-                    window.open('/master-catalog.pdf', '_blank');
+                    requestCatalogueDownload('/master-catalog.pdf', 'master-catalog.pdf', 'Master Catalog');
                   }
                 }}
                 className="bg-white text-blue-600 px-8 py-4 rounded-lg font-bold hover:bg-gray-100 transition-colors duration-300 flex items-center text-lg shadow-lg"
