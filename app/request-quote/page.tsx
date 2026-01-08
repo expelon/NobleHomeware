@@ -1,12 +1,56 @@
 'use client';
 
-import { useSearchParams } from 'next/navigation';
+import { useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import { toast } from 'sonner';
 
 export default function RequestQuote() {
-  const searchParams = useSearchParams();
-  const isSuccess = searchParams.get('success') === 'true';
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    number: '',
+    email: '',
+    deliveryTerm: '',
+    productDetails: ''
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    setFormData(prev => ({
+      ...prev,
+      [e.target.name]: e.target.value
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    try {
+      const res = await fetch('https://formsubmit.co/ajax/sales@noblehomeware.com', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json'
+        },
+        body: JSON.stringify({
+          _subject: 'New Quote Request',
+          ...formData
+        })
+      });
+
+      if (!res.ok) {
+        throw new Error('Submission failed');
+      }
+
+      toast.success('Quote request sent successfully! Our team will contact you within 24 hours.');
+      setFormData({ name: '', number: '', email: '', deliveryTerm: '', productDetails: '' });
+    } catch (error) {
+      toast.error('Failed to send quote request. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -31,20 +75,6 @@ export default function RequestQuote() {
 
       {/* Form Section */}
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12" id="quote-form">
-        {isSuccess && (
-          <div className="bg-green-50 border border-green-200 rounded-lg p-6 mb-8">
-            <div className="flex items-center">
-              <svg className="w-6 h-6 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-              </svg>
-              <div>
-                <h3 className="text-lg font-semibold text-green-800">Quote Request Sent Successfully!</h3>
-                <p className="text-green-700">Thank you for your request! Our team will contact you within 24 hours.</p>
-              </div>
-            </div>
-          </div>
-        )}
-        
         {/* Form Header Messages */}
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
@@ -99,15 +129,7 @@ export default function RequestQuote() {
 
         {/* Quote Form */}
         <div className="bg-white rounded-lg shadow-lg p-8">
-          <form
-            action="https://formsubmit.co/sales@noblehomeware.com"
-            method="POST"
-            className="space-y-6"
-          >
-            <input type="hidden" name="_subject" value="New Quote Request" />
-            <input type="hidden" name="_captcha" value="false" />
-            <input type="hidden" name="_next" value="/request-quote?success=true" />
-            
+          <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Name Field */}
               <div>
@@ -118,6 +140,8 @@ export default function RequestQuote() {
                   type="text"
                   id="name"
                   name="name"
+                  value={formData.name}
+                  onChange={handleChange}
                   required
                   className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                   placeholder="Your full name"
@@ -133,6 +157,8 @@ export default function RequestQuote() {
                   type="tel"
                   id="number"
                   name="number"
+                  value={formData.number}
+                  onChange={handleChange}
                   required
                   className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                   placeholder="Your phone number"
@@ -148,6 +174,8 @@ export default function RequestQuote() {
                   type="email"
                   id="email"
                   name="email"
+                  value={formData.email}
+                  onChange={handleChange}
                   required
                   className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                   placeholder="your.email@example.com"
@@ -162,6 +190,8 @@ export default function RequestQuote() {
                 <select
                   id="deliveryTerm"
                   name="deliveryTerm"
+                  value={formData.deliveryTerm}
+                  onChange={handleChange}
                   required
                   className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                 >
@@ -183,6 +213,8 @@ export default function RequestQuote() {
               <textarea
                 id="productDetails"
                 name="productDetails"
+                value={formData.productDetails}
+                onChange={handleChange}
                 required
                 rows={6}
                 className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
@@ -194,9 +226,10 @@ export default function RequestQuote() {
             <div className="text-center">
               <button
                 type="submit"
-                className="bg-blue-600 text-white px-8 py-4 rounded-md hover:bg-blue-700 transition-all font-semibold text-lg shadow-lg hover:shadow-xl transform hover:scale-105"
+                disabled={isSubmitting}
+                className="bg-blue-600 text-white px-8 py-4 rounded-md hover:bg-blue-700 transition-all font-semibold text-lg shadow-lg hover:shadow-xl transform hover:scale-105 disabled:opacity-60 disabled:cursor-not-allowed disabled:transform-none"
               >
-                Submit Quote Request
+                {isSubmitting ? 'Submitting...' : 'Submit Quote Request'}
               </button>
             </div>
           </form>
