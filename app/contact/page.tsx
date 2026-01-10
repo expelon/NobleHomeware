@@ -27,7 +27,7 @@ export default function Contact() {
     setIsSubmitting(true);
 
     try {
-      const res = await fetch('https://formsubmit.co/ajax/aneconglobal@gmail.com', {
+      const res = await fetch('https://formsubmit.co/ajax/sales@noblehomeware.com', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
