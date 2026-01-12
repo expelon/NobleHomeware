@@ -520,6 +520,12 @@ const blogPosts = [
   }
 ];
 
+export function generateStaticParams() {
+  return blogPosts.map((post) => ({
+    id: slugify(post.title),
+  }));
+}
+
 export async function generateMetadata({ params }: { params: { id: string } }) {
   const isNumericId = /^\d+$/.test(params.id);
   const post = isNumericId
